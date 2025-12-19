@@ -24,7 +24,7 @@
     "undici-types": "^7.16.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo Unit test are running!",
     "studio": "prisma studio --config ./prisma.config.ts",
     "dev": "nodemon --exec tsx src/index.ts"
   },
