@@ -5,24 +5,54 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  // output   = "./node_modules/@prisma/client"
-  // output   = "../src/generated/prisma"
-  // output   = "../src/prisma/client"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
+}
+
+enum TodoStatus {
+  PENDING
+  COMPLETED
+}
+
+enum TodoPriority {
+  LOW
+  MEDIUM
+  HIGH
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  todos Todo[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
 
-model Post {
-  id    Int    @id @default(autoincrement())
-  name  String
-  likes Int
+model Todo {
+  id     Int @id @default(autoincrement())
+  userId Int
+
+  title       String
+  description String?
+
+  status   TodoStatus   @default(PENDING)
+  priority TodoPriority @default(MEDIUM)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("todos")
 }

@@ -1,21 +1,16 @@
-import dotenv from "dotenv";
-dotenv.config();
+import express, { Express, Request, Response } from "express";
+import "dotenv/config";
+const app: Express = express();
+app.use(express.json());
 
-import express from "express";
-import { PrismaClient } from "@prisma/client";
+const PORT = process.env.PORT || 3000;
 
-const app = express();
-const port = 4000;
+app.get('/users', (req: Request, res: Response) => {
+    return res.json({
+        message: "successfully!"
+    })
+});
 
-const prisma = new PrismaClient();
-
-app.listen(port, async () => {
-  try {
-    await prisma.$connect();
-    console.log("Database connected");
-  } catch (err) {
-    console.error("DB connect failed", err);
-  }
-
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on <http://localhost:${PORT}> 🚀`);
 });
