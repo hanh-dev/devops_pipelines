@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import 'dotenv/config';
 import authRoutes from './features/auth/auth.route';
+import { errorHandler } from './middleware/error-handler';
 const app: Express = express();
 app.use(express.json());
 
@@ -13,8 +14,8 @@ app.get('/users', (req: Request, res: Response) => {
 });
 
 app.use('/api/v1', authRoutes);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on <http://localhost:${PORT}> 🚀`);
 });
-
