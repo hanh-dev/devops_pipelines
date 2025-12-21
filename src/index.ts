@@ -7,12 +7,6 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/users', (req: Request, res: Response) => {
-  return res.json({
-    message: 'successfully!',
-  });
-});
-
 app.use('/api/v1', authRoutes);
 app.use(errorHandler);
 
