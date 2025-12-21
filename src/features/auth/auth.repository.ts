@@ -1,8 +1,8 @@
 import { prisma } from '../../config/prisma';
-import { User } from '../../generated/prisma/client';
+import { RegisterDTO } from './auth.type';
 
 export const AuthRepository = {
-  async createUser(data: Omit<User, 'id'>) {
+  async createUser(data: RegisterDTO) {
     return await prisma.user.create({
       data,
     });

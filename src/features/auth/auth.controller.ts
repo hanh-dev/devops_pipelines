@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from './auth.service';
-import { LoginSchema, RegisterSchema } from './auth.schema';
+import { RegisterSchema } from './auth.schema';
+import { HttpStatus } from '../../constants/enum';
 export const AuthController = {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
@@ -10,11 +11,8 @@ export const AuthController = {
         throw parsed.error;
       }
 
-      const user = await AuthService.register(req.body);
-      return res.json({
-        message: 'Register successfully!',
-        data: user,
-      });
+      const result = await AuthService.register(req.body);
+      return res.status(HttpStatus.Ok).json(result);
     } catch (error) {
       next(error);
     }
@@ -22,15 +20,9 @@ export const AuthController = {
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const parsed = LoginSchema.safeParse(req.body);
-
-      if (!parsed.success) {
-        throw parsed.error;
-      }
-
       const result = await AuthService.login(req.body);
 
-      return res.status(200).json(result);
+      return res.status(HttpStatus.Ok).json(result);
     } catch (error) {
       next(error);
     }

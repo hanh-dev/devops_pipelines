@@ -3,11 +3,12 @@ import { AuthRepository } from './auth.repository';
 import { LoginDTO, RegisterDTO } from './auth.type';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { ERROR_MESSAGES } from '../../constants/error';
 export const AuthService = {
   async register(dto: RegisterDTO) {
     const isUserExists = await AuthRepository.findByEmail(dto.email);
     if (isUserExists) {
-      throw new Error('User Exists!');
+      throw new Error(ERROR_MESSAGES.EMAIL_EXISTS);
     }
     const hashPassword = await bcrypt.hash(dto.password, 10);
 
@@ -15,8 +16,6 @@ export const AuthService = {
       name: dto.name,
       email: dto.email,
       password: hashPassword,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
 
     return user;
@@ -26,20 +25,21 @@ export const AuthService = {
     const user = await AuthRepository.findByEmail(dto.email);
 
     if (!user) {
-      throw new Error('User not found!');
+      throw new Error(ERROR_MESSAGES.USER_NOT_FOUND);
     }
 
     const isPasswordMatch = await bcrypt.compare(dto.password, user.password);
 
     if (!isPasswordMatch) {
-      throw new Error('Password is not correct!');
+      throw new Error(ERROR_MESSAGES.INVALID_PASSWORD);
     }
     const token = await jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
       expiresIn: '15m',
     });
 
+    const { id, name, email } = user;
     return {
-      user,
+      user: { id, name, email },
       accessToken: token,
     };
   },
