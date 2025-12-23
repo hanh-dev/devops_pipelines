@@ -1,10 +1,15 @@
 export interface RegisterDTO {
-    name: string,
-    email: string,
-    password: string
+  name: string;
+  email: string;
+  password: string;
 }
 
 export interface LoginDTO {
-    email: string,
-    password: string
+  email: string;
+  password: string;
+}
+
+export interface Task {
+  name: string;
+  status: boolean;
 }
