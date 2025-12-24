@@ -1,4 +1,4 @@
-import { prisma } from '../../config/prisma';
+import { prisma } from '@config/prisma';
 import { CreateToDoDTO, TodoQueryDTO, UpdateToDoDTO } from './todo.type';
 
 export const ToDoRepository = {

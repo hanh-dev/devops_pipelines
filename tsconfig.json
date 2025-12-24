@@ -8,7 +8,12 @@
     "strict": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": "src",
+    "paths": {
+      "@config/*": ["config/*"],
+      "@constants/*": ["constants/*"],
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterSchema } from './auth.schema';
-import { HttpStatus } from '../../constants/enum';
+import { HttpStatus } from '@constants/enum';
 export const AuthController = {
   async register(req: Request, res: Response, next: NextFunction) {
     try {

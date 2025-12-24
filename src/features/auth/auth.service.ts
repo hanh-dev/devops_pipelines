@@ -3,7 +3,7 @@ import { AuthRepository } from './auth.repository';
 import { LoginDTO, RegisterDTO } from './auth.type';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { ERROR_MESSAGES } from '../../constants/error';
+import { ERROR_MESSAGES } from '@constants/error';
 export const AuthService = {
   async register(dto: RegisterDTO) {
     const isUserExists = await AuthRepository.findByEmail(dto.email);

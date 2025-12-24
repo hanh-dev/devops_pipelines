@@ -6,11 +6,12 @@ import {
   TodoQuerySchema,
   UpdateTodoSchema,
 } from './todo.schema';
-import { HttpStatus } from '../../constants/enum';
+import { HttpStatus } from '@constants/enum';
 
 export const ToDoController = {
   async createNewTask(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log('Hello Ho Van Hanh');
       const parsed = CreateTodoSchema.safeParse(req.body);
 
       if (!parsed.success) {
