@@ -10,8 +10,11 @@ const PORT = process.env.PORT || 3000;
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/todos', todoRoutes);
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy', timestamp: new Date() });
+});
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on <http://localhost:${PORT}> 🚀`);
+app.listen(3000, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
 });
