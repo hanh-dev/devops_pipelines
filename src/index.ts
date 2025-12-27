@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/todos', todoRoutes);
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'healthy', timestamp: new Date() });
+  res.status(200).json({ status: 'New checking API', timestamp: new Date() });
 });
 app.use(errorHandler);
 
